@@ -1,82 +1,141 @@
+/* Background with gradient */
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff99cc, #cc99ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298, #6a11cb, #2575fc);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
   color: white;
   text-align: center;
   margin: 0;
   padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.container {
+/* Animated gradient */
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* Glassmorphism card */
+.container.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
   padding: 30px;
   max-width: 600px;
-  margin: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Title */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
 }
 
+/* Input & button */
 input {
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   outline: none;
   margin: 10px;
+  width: 70%;
+  text-align: center;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 16px;
-  background: #ff66ff;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: white;
+  font-weight: bold;
 }
 
 button:hover {
-  background: #ff33cc;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00c6ff;
 }
 
+/* Avatar */
 #profile img {
   border-radius: 50%;
-  margin-top: 10px;
+  margin-top: 15px;
+  border: 3px solid #00c6ff;
 }
 
-.loader {
-  margin-top: 20px;
+/* Loading typing animation */
+.loader-text {
   font-size: 18px;
+  margin-top: 20px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid white;
+  animation: typing 2s steps(20, end) infinite, blink .8s infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 250px }
+}
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+/* Pet result */
+#result {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  animation: popIn 0.8s ease;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .rarity {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
   margin-top: 10px;
   color: gold;
+  text-shadow: 0 0 8px gold;
 }
 
+/* Server join button */
 .server-section {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .server-link {
   display: inline-block;
-  padding: 10px 20px;
-  background: #ff66ff;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.3s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .server-link:hover {
-  background: #ff33cc;
+  transform: scale(1.08);
+  box-shadow: 0 0 15px #00c6ff;
 }
 
+/* Confetti */
 @keyframes fall {
   to {
     transform: translateY(100vh);

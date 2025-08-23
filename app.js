@@ -1,10 +1,10 @@
 // Pets list 🌟
 const pets = [
-  { name: "Dragonfly" },
-  { name: "Raccoon" },
-  { name: "Queen Bee" },
-  { name: "Mimic Octopus" },
-  { name: "Kitsune" }
+  { name: "🪰 Dragonfly" },
+  { name: "🦝 Raccoon" },
+  { name: "👑🐝 Queen Bee" },
+  { name: "🐙 Mimic Octopus" },
+  { name: "🦊 Kitsune" }
 ];
 
 // Step 1: Ask for username
@@ -21,6 +21,7 @@ async function startGenerator() {
   document.getElementById("serverButton").innerHTML = "";
 
   try {
+    // Use RoProxy to look up username -> ID
     const userRes = await fetch(`https://users.roproxy.com/v1/usernames/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,7 +35,9 @@ async function startGenerator() {
     }
 
     const userId = userData.data[0].id;
-    const avatar = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=150&height=150&format=png`;
+
+    // ✅ Direct avatar URL — no JSON, just use <img>
+    const avatar = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=180&height=180&format=png`;
 
     document.getElementById("profile").innerHTML = `
       <div>

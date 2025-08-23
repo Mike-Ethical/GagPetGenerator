@@ -1,122 +1,116 @@
-// Roblox Pet Generator — fixed profile lookup with CORS-safe options
-const CONFIG = {
-  // Use "roproxy" (default) to route Roblox API calls through a free CORS proxy host.
-  // If you deploy your own proxy/worker (recommended), set mode to "custom" and fill customBase.
-  mode: "roproxy", // "roproxy" | "custom" | "direct"
-  customBase: "",  // e.g. "https://your-worker.example.workers.dev"
-  // Private server join URL (you can change this)
-  joinUrl: "https://roblox.com.ge/games/126884695634066/Grow-a-Garden?privateServerLinkCode=98362791523092484699268245505483"
-};
-
-// Five 'divine' pets (names only, icons are emojis)
-const PETS = [
-  { name: "Dragonfly", icon: "🦋" }, // using butterfly as a friendly icon
-  { name: "Raccoon", icon: "🦝" },
-  { name: "Queen Bee", icon: "🐝" },
-  { name: "Mimic Octopus", icon: "🐙" },
-  { name: "Kitsune", icon: "🦊" }
+// Pets list 🌟
+const pets = [
+  { name: "🪰 Dragonfly" },
+  { name: "🦝 Raccoon" },
+  { name: "👑🐝 Queen Bee" },
+  { name: "🐙 Mimic Octopus" },
+  { name: "🦊 Kitsune" }
 ];
 
-function usersBase(){
-  if (CONFIG.mode === "roproxy") return "https://users.roproxy.com";
-  if (CONFIG.mode === "custom")  return CONFIG.customBase + "/users";
-  return "https://users.roblox.com"; // may CORS-block on static hosting
-}
-
-function setHidden(id, hidden){
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.classList.toggle("hidden", hidden);
-}
-function showError(msg){
-  const el = document.getElementById("error");
-  el.textContent = msg;
-  setHidden("error", false);
-}
-function clearError(){
-  const el = document.getElementById("error");
-  el.textContent = "";
-  setHidden("error", true);
-}
-
-async function getUserByUsername(username){
-  // Roblox official endpoint (POST). On browsers this usually needs a proxy because of CORS.
-  const url = usersBase() + "/v1/usernames/users";
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ usernames: [username], excludeBannedUsers: false })
-  });
-  if (!res.ok){
-    const text = await res.text().catch(()=> "");
-    throw new Error(`Roblox API error ${res.status}: ${text.slice(0,200)}`);
+// Step 1: Ask for username
+async function startGenerator() {
+  const username = document.getElementById("username").value.trim();
+  if (!username) {
+    alert("Please enter a Roblox username!");
+    return;
   }
-  const json = await res.json();
-  const row = json?.data?.[0];
-  if (!row) throw new Error("User not found");
-  return { id: row.id, username: row.name, displayName: row.displayName || row.name };
-}
 
-function headshotUrl(userId){
-  // Use an image endpoint so we can set it directly as <img src> without CORS JSON.
-  // Several legacy URL shapes exist; this one still serves images as of 2025.
-  return `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=150&height=150&format=png`;
-}
+  document.getElementById("profile").innerHTML = "🔍 Searching for user...";
+  document.getElementById("loading").innerHTML = "";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("serverButton").innerHTML = "";
 
-async function onLookup(e){
-  e.preventDefault();
-  clearError();
-  setHidden("profile", true);
-  setHidden("generator", true);
+  try {
+    // Get UserId from username (via RoProxy to avoid CORS)
+    const userRes = await fetch(`https://users.roproxy.com/v1/usernames/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usernames: [username] })
+    });
+    const userData = await userRes.json();
 
-  const u = document.getElementById("username").value.trim();
-  if (!u) return;
-
-  try{
-    const user = await getUserByUsername(u);
-    // Fill profile card
-    document.getElementById("displayName").textContent = user.displayName;
-    document.getElementById("name").textContent = user.username;
-    const img = document.getElementById("avatar");
-    img.src = headshotUrl(user.id);
-    img.alt = `${user.username} avatar`;
-    img.onerror = () => {
-      // graceful fallback to initials if image fails
-      img.style.display = "none";
-      const ph = document.createElement("div");
-      ph.textContent = user.username.slice(0,1).toUpperCase();
-      ph.className = "avatar placeholder";
-    };
-    setHidden("profile", false);
-    setHidden("generator", false);
-  }catch(err){
-    console.error(err);
-    let tip = "";
-    if (CONFIG.mode === "direct"){
-      tip = " (Tip: switch CONFIG.mode to 'roproxy' in app.js or deploy the included Cloudflare Worker proxy.)";
+    if (!userData.data || userData.data.length === 0) {
+      document.getElementById("profile").innerHTML = "❌ User not found!";
+      return;
     }
-    showError(`Couldn't find that profile or the request was blocked by CORS. ${err.message}${tip}`);
+
+    const userId = userData.data[0].id;
+
+    // Build avatar image URL directly (no CORS issue)
+    const avatar = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=150&height=150&format=png`;
+
+    document.getElementById("profile").innerHTML = `
+      <div>
+        <h3>👤 ${username}</h3>
+        <img src="${avatar}" alt="${username}" width="150" height="150">
+      </div>
+      <br>
+      <button onclick="generatePet()">✨ Generate Pet</button>
+    `;
+
+  } catch (err) {
+    document.getElementById("profile").innerHTML = "⚠️ Error fetching user!";
+    console.error(err);
   }
 }
 
-function pickPet(){
-  return PETS[Math.floor(Math.random() * PETS.length)];
+// Step 2: Generate pet with suspense animation
+function generatePet() {
+  document.getElementById("loading").innerHTML = `
+    <div class="loader">
+      <div class="loader-icon">🌸</div>
+      <div class="loader-text">Generating your pet...</div>
+    </div>
+  `;
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("serverButton").innerHTML = "";
+
+  setTimeout(() => {
+    const randomPet = pets[Math.floor(Math.random() * pets.length)];
+    document.getElementById("loading").innerHTML = "";
+    document.getElementById("result").innerHTML = `
+      You generated: <br>
+      <span style="color:#ff00ff">${randomPet.name}</span> ✨
+      <div class="rarity">🌟 DIVINE 🌟</div>
+    `;
+
+    // Private server join section
+    document.getElementById("serverButton").innerHTML = `
+      <div class="server-section">
+        🔑 Join private server to claim your pet:
+        <br>
+        <a href="https://roblox.com.ge/games/126884695634066/Grow-a-Garden?privateServerLinkCode=98362791523092484699268245505483" 
+           target="_blank" 
+           class="server-link">Join</a>
+      </div>
+    `;
+
+    // Launch confetti 🎉
+    startConfetti();
+  }, 3000); // suspense for 3 seconds
 }
 
-function init(){
-  document.getElementById("lookupForm").addEventListener("submit", onLookup);
+// Simple confetti effect 🎉
+function startConfetti() {
+  const duration = 3 * 1000; // 3 seconds
+  const end = Date.now() + duration;
 
-  // Generate button
-  document.getElementById("genBtn").addEventListener("click", () => {
-    const pet = pickPet();
-    document.getElementById("petName").textContent = pet.name;
-    document.getElementById("petIcon").textContent = pet.icon;
-    setHidden("petCard", false);
+  (function frame() {
+    const confetti = document.createElement("div");
+    confetti.innerHTML = "✨";
+    confetti.style.position = "fixed";
+    confetti.style.top = "-10px";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.fontSize = Math.random() * 20 + 15 + "px";
+    confetti.style.color = ["#ff00ff","#ff66ff","#ffffff","#ffd700"][Math.floor(Math.random()*4)];
+    confetti.style.animation = "fall 3s linear forwards";
 
-    const join = document.getElementById("joinLink");
-    join.href = CONFIG.joinUrl || "#";
-    setHidden("claim", false);
-  });
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 3000);
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  }());
 }
-
-document.addEventListener("DOMContentLoaded", init);

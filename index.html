@@ -1,59 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Divine Pet Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <h1>Grow a Garden Pet Generator</h1>
-      <p class="sub">Generate a divine pet and claim it in our private server.</p>
-    </header>
+  <div class="container">
+    <h1>🌱 Divine Pet Generator</h1>
+    <p>Enter your Roblox username to get your dream pet!</p>
+    
+    <input type="text" id="username" placeholder="Enter Roblox username">
+    <button onclick="startGenerator()">🔍 Search</button>
 
-    <main class="card">
-      <form id="lookupForm" class="lookup">
-        <label for="username">Enter Roblox username</label>
-        <div class="row">
-          <input id="username" name="username" type="text" placeholder="e.g. Builderman" required />
-          <button type="submit" class="btn">Find</button>
-        </div>
-        <p id="hint" class="hint">Type Your Roblox Username To Generate Pet.</p>
-      </form>
-
-      <section id="profile" class="profile hidden">
-        <div class="avatar-wrap">
-          <img id="avatar" class="avatar" alt="Avatar" />
-        </div>
-        <div class="who">
-          <h2 id="displayName">—</h2>
-          <p id="nameLine">@<span id="name">—</span></p>
-        </div>
-      </section>
-
-      <section id="generator" class="generator hidden">
-        <button id="genBtn" class="btn primary">🎲 Generate Pet</button>
-        <div id="petCard" class="pet-card hidden">
-          <div class="pet-icon" id="petIcon">✨</div>
-          <div class="pet-info">
-            <h3 id="petName">—</h3>
-            <p class="tag">Category: Divine+</p>
-          </div>
-        </div>
-        <div id="claim" class="claim hidden">
-          <p>Join private server to claim your pet:</p>
-          <a id="joinLink" target="_blank" rel="noopener" class="btn link">Join</a>
-        </div>
-      </section>
-
-      <p id="error" class="error hidden"></p>
-    </main>
-
-    <footer class="foot">
-      <small>Affiliated with Roblox & Jandel.</small>
-    </footer>
+    <div id="profile"></div>
+    <div id="loading"></div>
+    <div id="result"></div>
+    <div id="serverButton"></div>
   </div>
 
   <script src="app.js"></script>

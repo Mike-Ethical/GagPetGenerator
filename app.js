@@ -1,10 +1,10 @@
 // Pets list 🌟
 const pets = [
-  { name: "🪰 Dragonfly" },
-  { name: "🦝 Raccoon" },
-  { name: "👑🐝 Queen Bee" },
-  { name: "🐙 Mimic Octopus" },
-  { name: "🦊 Kitsune" }
+  { name: "Dragonfly" },
+  { name: "Raccoon" },
+  { name: "Queen Bee" },
+  { name: "Mimic Octopus" },
+  { name: "Kitsune" }
 ];
 
 // Step 1: Ask for username
@@ -21,7 +21,6 @@ async function startGenerator() {
   document.getElementById("serverButton").innerHTML = "";
 
   try {
-    // Get UserId from username (via RoProxy)
     const userRes = await fetch(`https://users.roproxy.com/v1/usernames/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,8 +34,6 @@ async function startGenerator() {
     }
 
     const userId = userData.data[0].id;
-
-    // Avatar image URL
     const avatar = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=150&height=150&format=png`;
 
     document.getElementById("profile").innerHTML = `
@@ -54,12 +51,10 @@ async function startGenerator() {
   }
 }
 
-// Step 2: Generate pet with suspense animation
+// Step 2: Generate pet
 function generatePet() {
   document.getElementById("loading").innerHTML = `
-    <div class="loader">
-      <div class="loader-text">Generating your pet...</div>
-    </div>
+    <div class="loader-text">Generating your pet...</div>
   `;
   document.getElementById("result").innerHTML = "";
   document.getElementById("serverButton").innerHTML = "";
@@ -69,11 +64,10 @@ function generatePet() {
     document.getElementById("loading").innerHTML = "";
     document.getElementById("result").innerHTML = `
       You generated: <br>
-      <span style="color:#ff00ff">${randomPet.name}</span> ✨
+      <span style="color:#00e6ff">${randomPet.name}</span> ✨
       <div class="rarity">🌟 DIVINE 🌟</div>
     `;
 
-    // Private server join section
     document.getElementById("serverButton").innerHTML = `
       <div class="server-section">
         🔑 Join private server to claim your pet:
@@ -100,7 +94,7 @@ function startConfetti() {
     confetti.style.top = "-10px";
     confetti.style.left = Math.random() * 100 + "vw";
     confetti.style.fontSize = Math.random() * 20 + 15 + "px";
-    confetti.style.color = ["#ff00ff","#ff66ff","#ffffff","#ffd700"][Math.floor(Math.random()*4)];
+    confetti.style.color = ["#00e6ff","#66ffff","#ffffff","#ffd700"][Math.floor(Math.random()*4)];
     confetti.style.animation = "fall 3s linear forwards";
 
     document.body.appendChild(confetti);

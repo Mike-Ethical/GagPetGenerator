@@ -21,7 +21,7 @@ async function startGenerator() {
   document.getElementById("serverButton").innerHTML = "";
 
   try {
-    // Use RoProxy to look up username -> ID
+    // Verify username exists using RoProxy
     const userRes = await fetch(`https://users.roproxy.com/v1/usernames/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,22 +34,15 @@ async function startGenerator() {
       return;
     }
 
-    const userId = userData.data[0].id;
-
-    // ✅ Direct avatar URL — no JSON, just use <img>
-    const avatar = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=180&height=180&format=png`;
-
+    // ✅ Show success message instead of profile picture
     document.getElementById("profile").innerHTML = `
-      <div>
-        <h3>👤 ${username}</h3>
-        <img src="${avatar}" alt="${username}" width="150" height="150">
-      </div>
-      <br>
+      ✅ Username found! <br>
+      You can now generate your pet. <br><br>
       <button onclick="generatePet()">✨ Generate Pet</button>
     `;
 
   } catch (err) {
-    document.getElementById("profile").innerHTML = "⚠️ Error fetching user!";
+    document.getElementById("profile").innerHTML = "⚠️ Error checking user!";
     console.error(err);
   }
 }

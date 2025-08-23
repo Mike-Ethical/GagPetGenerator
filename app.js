@@ -21,7 +21,7 @@ async function startGenerator() {
   document.getElementById("serverButton").innerHTML = "";
 
   try {
-    // Get UserId from username (via RoProxy to avoid CORS)
+    // Get UserId from username (via RoProxy)
     const userRes = await fetch(`https://users.roproxy.com/v1/usernames/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -36,7 +36,7 @@ async function startGenerator() {
 
     const userId = userData.data[0].id;
 
-    // Build avatar image URL directly (no CORS issue)
+    // Avatar image URL
     const avatar = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=150&height=150&format=png`;
 
     document.getElementById("profile").innerHTML = `
@@ -58,7 +58,6 @@ async function startGenerator() {
 function generatePet() {
   document.getElementById("loading").innerHTML = `
     <div class="loader">
-      <div class="loader-icon">🌸</div>
       <div class="loader-text">Generating your pet...</div>
     </div>
   `;
@@ -85,14 +84,13 @@ function generatePet() {
       </div>
     `;
 
-    // Launch confetti 🎉
     startConfetti();
-  }, 3000); // suspense for 3 seconds
+  }, 3000);
 }
 
-// Simple confetti effect 🎉
+// Confetti 🎉
 function startConfetti() {
-  const duration = 3 * 1000; // 3 seconds
+  const duration = 3 * 1000;
   const end = Date.now() + duration;
 
   (function frame() {
@@ -106,7 +104,6 @@ function startConfetti() {
     confetti.style.animation = "fall 3s linear forwards";
 
     document.body.appendChild(confetti);
-
     setTimeout(() => confetti.remove(), 3000);
 
     if (Date.now() < end) {

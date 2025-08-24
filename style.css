@@ -41,16 +41,37 @@ button:hover, a:hover {
   background: rgba(27, 38, 59, 0.9);
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
-  text-align: left;
-}
-
-.card-box h2 {
   text-align: center;
-  color: #48cae4;
-  margin-bottom: 10px;
 }
 
-/* Live Activity rows */
+/* Username Input Box */
+.input-box {
+  border: 2px solid #0096c7;
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.6);
+}
+
+.input-box input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 1em;
+  text-align: center;
+  box-shadow: inset 0 0 5px rgba(0, 180, 216, 0.5);
+}
+
+/* Live Activity Box */
+.live-box {
+  height: 250px;
+  overflow-y: auto;
+}
+
+#activity-feed {
+  display: flex;
+  flex-direction: column;
+}
+
 .activity {
   margin: 6px 0;
   padding: 8px;
@@ -58,4 +79,5 @@ button:hover, a:hover {
   background: rgba(13, 27, 42, 0.8);
   border-left: 3px solid #0096c7;
   font-size: 0.95em;
+  text-align: left;
 }

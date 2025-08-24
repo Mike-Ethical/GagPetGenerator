@@ -17,6 +17,21 @@
       <button onclick="startGenerator()">Search</button>
       <div id="profile"></div>
     </section>
+    
+<div class="search-box">
+  <input type="text" id="username" placeholder="Enter Roblox Username">
+  <button onclick="submitUsername()">Search</button>
+</div>
+<p id="user-status"></p>
+
+<div class="generator" style="display:none;">
+  <button onclick="generatePet()">Generate Pet</button>
+  <div id="pet-result"></div>
+  <div id="join-section" style="display:none; margin-top:15px;">
+    <p>⬇️ Join server below to claim your pet ⬇️</p>
+    <a href="https://roblox.com" target="_blank" class="join-btn">Join</a>
+  </div>
+</div>
 
     <!-- Generator -->
     <section id="generator-section" style="display:none;">

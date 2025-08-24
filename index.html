@@ -4,49 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Divine Pet Generator</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body>
+  <div class="container">
+    <h1>Divine Pet Generator</h1>
 
-  <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4 text-center">Divine Pet Generator</h1>
-    
     <!-- Search Username Box -->
-    <div class="mb-6 p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
-      <label for="username" class="block mb-2 font-medium text-gray-700">Search Username</label>
-      <input type="text" id="username" placeholder="Enter username"
-        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <div class="box">
+      <label for="username">Search Username</label>
+      <input type="text" id="username" placeholder="Enter username">
     </div>
-    
+
     <!-- Live Activity Box -->
-    <div class="p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
-      <h2 class="text-lg font-semibold mb-2">Live Activity</h2>
-      <div id="liveActivity" class="text-gray-700">
-        <!-- This is where live activity content will go -->
-        No activity yet.
+    <div class="box">
+      <h2>Live Activity</h2>
+      <div id="liveActivity" class="live-activity">
+        <!-- Live activities will appear here -->
       </div>
     </div>
-    
-    <button id="searchBtn" class="mt-6 w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600">
-      Search
-    </button>
+
+    <button id="searchBtn">Search</button>
   </div>
 
-  <script>
-    const liveActivity = document.getElementById('liveActivity');
-    const searchBtn = document.getElementById('searchBtn');
-    const usernameInput = document.getElementById('username');
-
-    searchBtn.addEventListener('click', () => {
-      const username = usernameInput.value.trim();
-      if(username) {
-        liveActivity.textContent = `Searching activity for: ${username}...`;
-        // Add your fetch or API logic here
-      } else {
-        liveActivity.textContent = `Please enter a username.`;
-      }
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>

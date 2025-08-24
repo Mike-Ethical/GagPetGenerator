@@ -12,43 +12,50 @@ h1, h2 {
   margin-top: 20px;
 }
 
+/* Buttons */
 button, a {
   background: #0077b6;
   color: white;
   border: none;
   padding: 10px 20px;
   margin: 8px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+  transition: all 0.2s ease-in-out;
 }
 
 button:hover, a:hover {
   background: #0096c7;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.9);
 }
 
-#banner {
-  background: #001f3f;
-  color: #00b4d8;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 1.1em;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.feed, .leaderboard {
+/* Card Box */
+.card-box {
   max-width: 400px;
-  margin: 10px auto;
-  padding: 10px;
-  background: #1b263b;
-  border-radius: 8px;
+  margin: 20px auto;
+  padding: 15px;
+  background: rgba(27, 38, 59, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
   text-align: left;
 }
 
-.activity, .leaderboard-row {
-  margin: 5px 0;
-  padding: 5px;
-  border-bottom: 1px solid #415a77;
+.card-box h2 {
+  text-align: center;
+  color: #48cae4;
+  margin-bottom: 10px;
+}
+
+/* Live Activity rows */
+.activity {
+  margin: 6px 0;
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(13, 27, 42, 0.8);
+  border-left: 3px solid #0096c7;
+  font-size: 0.95em;
 }

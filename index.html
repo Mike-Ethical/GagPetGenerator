@@ -3,50 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grow a Garden Pet Generator</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Divine Pet Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <main>
-    <h1>Grow a Garden Pet Generator</h1>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <!-- Username Input -->
-    <section class="card-box input-box">
-      <h2>Enter Username</h2>
-      <input type="text" id="username" placeholder="Enter Roblox Username">
-      <button onclick="startGenerator()">Search</button>
-      <div id="profile"></div>
-    </section>
+  <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-4 text-center">Divine Pet Generator</h1>
     
-<div class="search-box">
-  <input type="text" id="username" placeholder="Enter Roblox Username">
-  <button onclick="submitUsername()">Search</button>
-</div>
-<p id="user-status"></p>
-
-<div class="generator" style="display:none;">
-  <button onclick="generatePet()">Generate Pet</button>
-  <div id="pet-result"></div>
-  <div id="join-section" style="display:none; margin-top:15px;">
-    <p>⬇️ Join server below to claim your pet ⬇️</p>
-    <a href="https://roblox.com" target="_blank" class="join-btn">Join</a>
+    <!-- Search Username Box -->
+    <div class="mb-6 p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
+      <label for="username" class="block mb-2 font-medium text-gray-700">Search Username</label>
+      <input type="text" id="username" placeholder="Enter username"
+        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+    </div>
+    
+    <!-- Live Activity Box -->
+    <div class="p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
+      <h2 class="text-lg font-semibold mb-2">Live Activity</h2>
+      <div id="liveActivity" class="text-gray-700">
+        <!-- This is where live activity content will go -->
+        No activity yet.
+      </div>
+    </div>
+    
+    <button id="searchBtn" class="mt-6 w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600">
+      Search
+    </button>
   </div>
-</div>
 
-    <!-- Generator -->
-    <section id="generator-section" style="display:none;">
-      <button onclick="generatePet()">🎲 Generate Pet</button>
-      <div id="result"></div>
-      <a id="join-btn" href="https://roblox.com" target="_blank" style="display:none;">⬇️ Join Private Server</a>
-    </section>
+  <script>
+    const liveActivity = document.getElementById('liveActivity');
+    const searchBtn = document.getElementById('searchBtn');
+    const usernameInput = document.getElementById('username');
 
-    <!-- Live Activity -->
-    <section class="card-box live-box">
-      <h2>🌍 Live Activity</h2>
-      <div id="activity-feed"></div>
-    </section>
-  </main>
+    searchBtn.addEventListener('click', () => {
+      const username = usernameInput.value.trim();
+      if(username) {
+        liveActivity.textContent = `Searching activity for: ${username}...`;
+        // Add your fetch or API logic here
+      } else {
+        liveActivity.textContent = `Please enter a username.`;
+      }
+    });
+  </script>
 
-  <script src="app.js"></script>
 </body>
 </html>

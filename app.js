@@ -4,7 +4,8 @@ const pets = ["Dragonfly", "Raccoon", "Queen Bee", "Mimic Octopus", "Kitsune"];
 /* ========= Fake Users ========= */
 let fakeUsers = [
   "RobloxUser101", "CoolPlayer22", "EpicGamer77", 
-  "GardenMaster", "BeeLover", "MysticFox"
+  "GardenMaster", "BeeLover", "MysticFox", "DragonSlayer",
+  "NightOwl", "PetHunter", "BlueWolf"
 ];
 
 /* ========= Username + Generator ========= */
@@ -43,10 +44,8 @@ function generatePet() {
 
 /* ========= Live Fake Activity ========= */
 function randomActivity() {
-  const feed = document.getElementById("activity-feed");
   const user = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
   const pet = pets[Math.floor(Math.random() * pets.length)];
-
   addActivity(`${user} generated a ${pet}!`);
 }
 
@@ -56,15 +55,11 @@ function addActivity(message) {
   activity.className = "activity";
   activity.textContent = message;
 
-  feed.prepend(activity);
-
-  // Keep only latest 8
-  if (feed.children.length > 8) {
-    feed.removeChild(feed.lastChild);
-  }
+  feed.appendChild(activity); // adds to bottom
+  feed.scrollTop = feed.scrollHeight; // auto-scrolls down
 }
 
 /* ========= Init ========= */
 document.addEventListener("DOMContentLoaded", () => {
-  setInterval(randomActivity, 4000); // every 4s new fake activity
+  setInterval(randomActivity, 3000); // every 3s new fake activity
 });

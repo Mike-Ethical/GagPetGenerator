@@ -7,17 +7,18 @@ const pets = [
   { name: "🦊 Kitsune" }
 ];
 
+// Real Roblox users (these IDs exist so avatars always show)
 const fakeUsers = [
-  { name: "RobloxUser277", id: 1 },
-  { name: "CoolKid442", id: 2 },
-  { name: "xXDragonMasterXx", id: 3 },
-  { name: "NoobSlayer99", id: 4 },
-  { name: "GardenQueen", id: 5 },
-  { name: "BeeLover101", id: 6 },
-  { name: "EpicRaccoonGuy", id: 7 },
-  { name: "PetHunterX", id: 8 },
-  { name: "ShadowKitsune", id: 9 },
-  { name: "OctoMaster22", id: 10 }
+  { name: "Builderman", id: 156 },
+  { name: "Shedletsky", id: 261 },
+  { name: "stickmasterluke", id: 145 },
+  { name: "roblox", id: 1 },
+  { name: "seranok", id: 261 },
+  { name: "Merely", id: 33947 },
+  { name: "ReeseMcBlox", id: 20 },
+  { name: "tarabyte", id: 1639 },
+  { name: "CloneTrooper1019", id: 12886 },
+  { name: "Defaultio", id: 6730574 }
 ];
 
 /* ========= Username + Generator ========= */
@@ -72,7 +73,7 @@ function addActivityLine(user, pet) {
   const line = document.createElement("div");
   line.className = "activity-line";
 
-  // Fake Roblox avatar (headshot)
+  // Working Roblox avatar
   const avatar = document.createElement("img");
   avatar.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=48&height=48&format=png`;
 
@@ -84,6 +85,7 @@ function addActivityLine(user, pet) {
 
   feed.appendChild(line);
 
+  // Limit feed size
   if (feed.children.length > 7) {
     feed.removeChild(feed.firstChild);
   }
@@ -99,7 +101,7 @@ function randomActivity() {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("checkBtn").addEventListener("click", startGenerator);
 
-  // Start feed
+  // Start feed with a few items
   for (let i = 0; i < 3; i++) randomActivity();
   setInterval(randomActivity, 3000);
 });

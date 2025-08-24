@@ -2,7 +2,7 @@ const pets = ["Dragonfly", "Raccoon", "Queen Bee", "Mimic Octopus", "Kitsune"];
 let realUser = "";
 
 // Handle username submission
-function submitUsername() {
+async function submitUsername() {
   const username = document.getElementById("username").value.trim();
   const userStatus = document.getElementById("user-status");
 
@@ -11,9 +11,27 @@ function submitUsername() {
     return;
   }
 
-  realUser = username;
-  userStatus.innerText = `✅ Username found, you can generate your pet.`;
-  document.querySelector(".generator").style.display = "block";
+  try {
+    // Call Roblox API to check username
+    const response = await fetch("https://users.roblox.com/v1/usernames/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usernames: [username] })
+    });
+
+    const data = await response.json();
+
+    if (data.data && data.data.length > 0) {
+      realUser = data.data[0].name; // correct username (case-sensitive)
+      userStatus.innerText = `✅ Username found: ${realUser}, you can generate your pet.`;
+      document.querySelector(".generator").style.display = "block";
+    } else {
+      userStatus.innerText = "❌ Username not found.";
+    }
+  } catch (err) {
+    console.error(err);
+    userStatus.innerText = "⚠️ Error checking username. Try again later.";
+  }
 }
 
 // Generate pet with loading + result
@@ -33,10 +51,7 @@ function generatePet() {
       <p class="claim-text">👇 Join server below to claim your pet 👇</p>
     `;
 
-    // Bounce-in animation for join button
     joinBtn.style.display = "inline-block";
-    joinBtn.style.animation = "none";
-    joinBtn.offsetHeight; // trigger reflow
     joinBtn.style.animation = "bounce-in 0.7s ease";
 
     addActivity(`${realUser} generated a ${pet}!`);

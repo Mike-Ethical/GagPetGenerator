@@ -14,7 +14,7 @@ const fakeUsers = [
   "ShadowKitsune", "OctoMaster22"
 ];
 
-// Check username flow
+// Check username
 function startGenerator() {
   const username = document.getElementById("username").value.trim();
   const profileDiv = document.getElementById("profile");
@@ -61,10 +61,11 @@ function randomActivity() {
 
   feed.prepend(newLine);
 
-  if (feed.children.length > 10) {
+  // keep max 8 logs
+  if (feed.children.length > 8) {
     feed.removeChild(feed.lastChild);
   }
 }
 
 // Start fake feed
-setInterval(randomActivity, 4000); // every 4 seconds
+setInterval(randomActivity, 4000); // every 4s

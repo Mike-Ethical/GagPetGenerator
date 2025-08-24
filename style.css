@@ -1,16 +1,17 @@
 body {
-  background-color: #0a1e3d; /* Night-blue background */
+  background-color: #0a1e3d;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
   margin: 0;
-  color: #e0e7ff; /* Light text for contrast */
+  padding-top: 20px;
+  color: #e0e7ff;
 }
 
 .container {
-  background: #11294d; /* Dark blue container */
+  background: #11294d;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(0,0,0,0.6);
@@ -21,11 +22,11 @@ body {
 
 h1 {
   margin-bottom: 1.5rem;
-  color: #7dd3fc; /* Light blue title */
+  color: #7dd3fc;
 }
 
 .box {
-  background: #1e3a5f; /* Darker box background */
+  background: #1e3a5f;
   padding: 1rem;
   border-radius: 0.75rem;
   margin-bottom: 1rem;
@@ -75,7 +76,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Loader Animation */
 .loader {
   border: 5px solid #1e3a5f;
   border-top: 5px solid #3b82f6;
@@ -89,4 +89,45 @@ button:hover {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Glow effect for pet name */
+.glow {
+  color: #7dd3fc;
+  text-shadow: 0 0 5px #7dd3fc, 0 0 10px #7dd3fc, 0 0 15px #3b82f6;
+  font-weight: bold;
+}
+
+/* Finding username dots animation */
+.dots::after {
+  content: '';
+  animation: blink 1s infinite step-end;
+}
+
+@keyframes blink {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* Live Activity Feed */
+.live-activity {
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.activity-entry {
+  margin-bottom: 5px;
+  padding: 4px 6px;
+  background-color: #0f1f3a;
+  border-radius: 4px;
+  color: #7dd3fc;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }

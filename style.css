@@ -1,4 +1,4 @@
-/* Night blue background */
+/* Background */
 body {
   margin: 0;
   padding: 0;
@@ -9,11 +9,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   padding-top: 50px;
 }
 
-/* Container */
+/* Generator box */
 .container {
   background: rgba(0, 25, 60, 0.7);
   padding: 30px;
@@ -36,6 +35,7 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* Inputs + buttons */
 input {
   padding: 12px;
   width: 80%;
@@ -66,132 +66,41 @@ button:hover, .server-link:hover {
   box-shadow: 0 0 20px #00cfff;
 }
 
-/* Activity feed */
-#activityFeed {
+/* Feed section */
+.feed-container {
+  background: rgba(0, 20, 50, 0.7);
   padding: 20px;
-  background: rgba(0, 20, 50, 0.6);
   border-radius: 15px;
   width: 90%;
   max-width: 600px;
-  color: #9fdfff;
-  font-size: 15px;
-  text-align: left;
   box-shadow: 0 0 25px rgba(0, 180, 255, 0.3);
   margin-bottom: 50px;
 }
+
+.feed-container h2 {
+  color: #4fc3f7;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+#activityFeed {
+  max-height: 200px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  color: #9fdfff;
+}
+
 #activityFeed div {
-  margin-bottom: 8px;
+  background: rgba(0, 40, 80, 0.5);
+  padding: 6px 10px;
+  border-radius: 8px;
   animation: fadeIn 0.5s ease-in-out;
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
-}
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  text-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
-}
-
-/* Input & button */
-input {
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: none;
-  outline: none;
-  margin: 10px;
-  width: 70%;
-  text-align: center;
-}
-
-button {
-  padding: 12px 25px;
-  font-size: 16px;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  color: white;
-  font-weight: bold;
-}
-
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #00c6ff;
-}
-
-/* Avatar */
-#profile img {
-  border-radius: 50%;
-  margin-top: 15px;
-  border: 3px solid #00c6ff;
-}
-
-/* Loading typing animation */
-.loader-text {
-  font-size: 18px;
-  margin-top: 20px;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid white;
-  animation: typing 2s steps(20, end) infinite, blink .8s infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 250px }
-}
-@keyframes blink {
-  50% { border-color: transparent }
-}
-
-/* Pet result */
-#result {
-  font-size: 1.5rem;
-  margin-top: 20px;
-  animation: popIn 0.8s ease;
-}
-
-@keyframes popIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.rarity {
-  font-weight: bold;
-  font-size: 22px;
-  margin-top: 10px;
-  color: gold;
-  text-shadow: 0 0 8px gold;
-}
-
-/* Server join button */
-.server-section {
-  margin-top: 25px;
-}
-
-.server-link {
-  display: inline-block;
-  padding: 12px 25px;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: white;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.server-link:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 15px #00c6ff;
-}
-
-/* Confetti */
-@keyframes fall {
-  to {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
 }

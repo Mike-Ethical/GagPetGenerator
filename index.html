@@ -14,17 +14,21 @@
     <div class="box">
       <label for="username">Search Username</label>
       <input type="text" id="username" placeholder="Enter username">
+      <button id="searchBtn">Search</button>
     </div>
 
-    <!-- Live Activity Box -->
-    <div class="box">
-      <h2>Live Activity</h2>
-      <div id="liveActivity" class="live-activity">
-        <!-- Live activities will appear here -->
-      </div>
+    <!-- Message & Generate Pet -->
+    <div class="box" id="generateBox" style="display:none;">
+      <p id="userFoundText"></p>
+      <button id="generateBtn">Generate Pet</button>
     </div>
 
-    <button id="searchBtn">Search</button>
+    <!-- Generated Pet Display -->
+    <div class="box" id="petBox" style="display:none;">
+      <p id="petNameText"></p>
+      <p>Join to claim your pet</p>
+      <button id="joinServerBtn">Join Private Server</button>
+    </div>
   </div>
 
   <script src="script.js"></script>

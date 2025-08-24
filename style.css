@@ -1,46 +1,136 @@
-/* Feed container */
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Background + global */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #e0f7ff;
+  background: radial-gradient(circle at top, #001830, #000814);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Generator panel */
+.container {
+  background: rgba(0, 25, 60, 0.7);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 180, 255, 0.6);
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  color: #4fc3f7;
+  text-shadow: 0 0 15px rgba(0, 180, 255, 0.8);
+  margin-bottom: 10px;
+  font-size: 1.9rem;
+}
+
+.subtitle {
+  color: #9fdfff;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+/* Inputs + buttons */
+input {
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #4fc3f7;
+  margin-bottom: 14px;
+  background: rgba(0, 40, 80, 0.85);
+  color: #e0f7ff;
+  font-size: 1rem;
+}
+
+button, .server-link {
+  background: linear-gradient(90deg, #0066ff, #00cfff);
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+  min-width: 160px;
+}
+
+button:hover, .server-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00cfff;
+}
+
+/* Messages */
+#profile { margin-top: 8px; color: #b9eaff; }
+#result  { margin-top: 14px; font-size: 1.05rem; color: #bff7ff; }
+
+/* Live Activity section */
 .feed-container {
   background: rgba(0, 20, 50, 0.7);
-  padding: 20px;
+  padding: 18px;
   border-radius: 15px;
   width: 100%;
-  max-width: 600px;
+  max-width: 640px;
   box-shadow: 0 0 25px rgba(0, 180, 255, 0.3);
-  margin-bottom: 20px;
   overflow: hidden; /* important for ticker */
 }
 
 .feed-container h2 {
   color: #4fc3f7;
-  margin-bottom: 12px;
-  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-size: 1.15rem;
 }
 
+/* Ticker track */
 #activityFeed {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.95rem;
   color: #9fdfff;
-  transition: transform 0.6s ease-in-out;
+  font-size: 0.95rem;
 }
 
-#activityFeed div {
-  background: rgba(0, 40, 80, 0.5);
-  padding: 6px 10px;
+/* Entry */
+#activityFeed .line {
+  background: rgba(0, 40, 80, 0.55);
+  padding: 8px 10px;
   border-radius: 8px;
-  animation: fadeIn 0.6s ease-in-out;
   white-space: nowrap;
+  transform: translateY(12px);
+  opacity: 0;
+  animation: lineIn 0.45s ease-out forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+#activityFeed .line.pulse {
+  box-shadow: 0 0 0 0 rgba(0, 207, 255, 0.9);
+  animation: lineIn 0.45s ease-out forwards, pulseGlow 1s ease-out 0.45s 1;
 }
 
-/* 📱 Mobile Adjustments */
+/* Animations */
+@keyframes lineIn {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes pulseGlow {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 207, 255, 0.9); }
+  100% { box-shadow: 0 0 18px 6px rgba(0, 207, 255, 0); }
+}
+
+/* Mobile tweaks */
 @media (max-width: 600px) {
-  #activityFeed {
-    font-size: 0.85rem;
-  }
+  h1 { font-size: 1.6rem; }
+  .subtitle { font-size: 0.9rem; }
+  button, .server-link { width: 100%; min-width: unset; }
+  #activityFeed { font-size: 0.9rem; }
 }

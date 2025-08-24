@@ -1,4 +1,4 @@
-/* ========= Data ========= */
+/* ========= Pets ========= */
 const pets = [
   { name: "🪰 Dragonfly" },
   { name: "🦝 Raccoon" },
@@ -7,17 +7,16 @@ const pets = [
   { name: "🦊 Kitsune" }
 ];
 
-// Real Roblox users (IDs exist)
+/* ========= Fake Users ========= */
 const fakeUsers = [
-  { name: "Builderman", id: 156 },
-  { name: "Shedletsky", id: 261 },
-  { name: "stickmasterluke", id: 145 },
-  { name: "roblox", id: 1 },
-  { name: "Merely", id: 33947 },
-  { name: "ReeseMcBlox", id: 20 },
-  { name: "tarabyte", id: 1639 },
-  { name: "CloneTrooper1019", id: 12886 },
-  { name: "Defaultio", id: 6730574 }
+  { name: "Builderman", id: 156, total: 48 },
+  { name: "Shedletsky", id: 261, total: 42 },
+  { name: "stickmasterluke", id: 145, total: 37 },
+  { name: "roblox", id: 1, total: 35 },
+  { name: "Merely", id: 33947, total: 29 },
+  { name: "ReeseMcBlox", id: 20, total: 22 },
+  { name: "tarabyte", id: 1639, total: 18 },
+  { name: "CloneTrooper1019", id: 12886, total: 15 }
 ];
 
 /* ========= Username + Generator ========= */
@@ -42,7 +41,7 @@ function startGenerator() {
   const generateBtn = document.createElement("button");
   generateBtn.textContent = "Generate Pet";
   generateBtn.onclick = () => {
-    resultDiv.innerHTML = `<div class="spinner"></div> Generating your pet...`;
+    resultDiv.innerHTML = `<div class="spinner"></div> <p>Generating your pet...</p>`;
     serverBtnDiv.textContent = "";
 
     setTimeout(() => {
@@ -65,33 +64,21 @@ function startGenerator() {
 }
 
 /* ========= Live Activity ========= */
-async function addActivityLine(user, pet) {
+function addActivityLine(user, pet) {
   const feed = document.getElementById("activityFeed");
 
   const line = document.createElement("div");
   line.className = "activity-line";
 
-  // Get avatar via Roblox Thumbnails API
-  try {
-    const res = await fetch(
-      `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${user.id}&size=48x48&format=Png&isCircular=true`
-    );
-    const data = await res.json();
-    const avatarUrl = data.data[0]?.imageUrl || "";
+  const avatar = document.createElement("img");
+  avatar.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=48&height=48&format=png`;
+  avatar.alt = user.name;
 
-    const avatar = document.createElement("img");
-    avatar.src = avatarUrl;
-    avatar.alt = user.name;
+  const text = document.createElement("span");
+  text.textContent = `${user.name} generated a ${pet.name}`;
 
-    const text = document.createElement("span");
-    text.textContent = `${user.name} generated a ${pet.name}`;
-
-    line.appendChild(avatar);
-    line.appendChild(text);
-  } catch (err) {
-    console.error("Avatar fetch failed:", err);
-    line.textContent = `${user.name} generated a ${pet.name}`;
-  }
+  line.appendChild(avatar);
+  line.appendChild(text);
 
   feed.appendChild(line);
 
@@ -106,10 +93,36 @@ function randomActivity() {
   addActivityLine(user, pet);
 }
 
+/* ========= Leaderboard ========= */
+function buildLeaderboard() {
+  const board = document.getElementById("leaderboard");
+  board.innerHTML = "";
+
+  fakeUsers.sort((a, b) => b.total - a.total).forEach(user => {
+    const card = document.createElement("div");
+    card.className = "leader-card";
+
+    const avatar = document.createElement("img");
+    avatar.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=50&height=50&format=png`;
+
+    const info = document.createElement("div");
+    info.className = "leader-info";
+    info.innerHTML = `<strong>${user.name}</strong><br>Pets Generated: ${user.total}`;
+
+    card.appendChild(avatar);
+    card.appendChild(info);
+    board.appendChild(card);
+  });
+}
+
 /* ========= Init ========= */
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("checkBtn").addEventListener("click", startGenerator);
 
+  // Live Activity
   for (let i = 0; i < 3; i++) randomActivity();
-  setInterval(randomActivity, 3000);
+  setInterval(randomActivity, 4000);
+
+  // Leaderboard
+  buildLeaderboard();
 });

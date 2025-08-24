@@ -7,25 +7,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Generator Panel -->
   <div class="container">
     <h1>🌙 Roblox Pet Generator</h1>
     <p class="subtitle">Enter your Roblox username to generate a pet!</p>
 
     <input type="text" id="username" placeholder="Enter Roblox Username" />
-    <button id="checkBtn" onclick="startGenerator()">Check Username</button>
+    <button id="checkBtn">Check Username</button>
 
     <div id="profile"></div>
     <div id="result"></div>
     <div id="serverButton"></div>
   </div>
 
-  <!-- Live Activity Ticker -->
   <div class="feed-container">
     <h2>⚡ Live Activity</h2>
-    <div id="activityFeed" aria-live="polite"></div>
+    <div id="activityFeed"></div>
   </div>
 
+  <!-- ⚠️ IMPORTANT: load JS at the very end -->
   <script src="app.js"></script>
 </body>
 </html>

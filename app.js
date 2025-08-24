@@ -1,4 +1,4 @@
-// Pets list 🌟
+// Pets
 const pets = [
   { name: "🪰 Dragonfly" },
   { name: "🦝 Raccoon" },
@@ -7,97 +7,64 @@ const pets = [
   { name: "🦊 Kitsune" }
 ];
 
-// Step 1: Ask for username
-async function startGenerator() {
+// Fake usernames for feed
+const fakeUsers = [
+  "RobloxUser277", "CoolKid442", "xXDragonMasterXx", "NoobSlayer99",
+  "GardenQueen", "BeeLover101", "EpicRaccoonGuy", "PetHunterX",
+  "ShadowKitsune", "OctoMaster22"
+];
+
+// Check username flow
+function startGenerator() {
   const username = document.getElementById("username").value.trim();
+  const profileDiv = document.getElementById("profile");
+  const resultDiv = document.getElementById("result");
+  const serverBtnDiv = document.getElementById("serverButton");
+
+  profileDiv.textContent = "";
+  resultDiv.textContent = "";
+  serverBtnDiv.textContent = "";
+
   if (!username) {
-    alert("Please enter a Roblox username!");
+    profileDiv.textContent = "❌ Please enter a username.";
     return;
   }
 
-  document.getElementById("profile").innerHTML = "🔍 Searching for user...";
-  document.getElementById("loading").innerHTML = "";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("serverButton").innerHTML = "";
+  profileDiv.textContent = `✅ Username "${username}" found. You can generate your pet.`;
 
-  try {
-    // Verify username exists using RoProxy
-    const userRes = await fetch(`https://users.roproxy.com/v1/usernames/users`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ usernames: [username] })
-    });
-    const userData = await userRes.json();
+  const generateBtn = document.createElement("button");
+  generateBtn.textContent = "Generate Pet";
+  generateBtn.onclick = () => {
+    const pet = pets[Math.floor(Math.random() * pets.length)];
+    resultDiv.textContent = `🎉 You generated a ${pet.name}!`;
 
-    if (!userData.data || userData.data.length === 0) {
-      document.getElementById("profile").innerHTML = "❌ User not found!";
-      return;
-    }
+    const serverBtn = document.createElement("a");
+    serverBtn.href = "https://roblox.com.ge/games/126884695634066/Grow-a-Garden?privateServerLinkCode=98362791523092484699268245505483";
+    serverBtn.textContent = "Join Private Server to Claim";
+    serverBtn.className = "server-link";
+    serverBtnDiv.innerHTML = "";
+    serverBtnDiv.appendChild(serverBtn);
+  };
 
-    // ✅ Show success message instead of profile picture
-    document.getElementById("profile").innerHTML = `
-      ✅ Username found! <br>
-      You can now generate your pet. <br><br>
-      <button onclick="generatePet()">✨ Generate Pet</button>
-    `;
+  profileDiv.appendChild(document.createElement("br"));
+  profileDiv.appendChild(generateBtn);
+}
 
-  } catch (err) {
-    document.getElementById("profile").innerHTML = "⚠️ Error checking user!";
-    console.error(err);
+// Fake activity feed
+function randomActivity() {
+  const user = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+  const pet = pets[Math.floor(Math.random() * pets.length)];
+  const feed = document.getElementById("activityFeed");
+
+  const newLine = document.createElement("div");
+  newLine.textContent = `${user} generated a ${pet.name}`;
+
+  feed.prepend(newLine);
+
+  if (feed.children.length > 10) {
+    feed.removeChild(feed.lastChild);
   }
 }
 
-// Step 2: Generate pet
-function generatePet() {
-  document.getElementById("loading").innerHTML = `
-    <div class="loader-text">Generating your pet...</div>
-  `;
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("serverButton").innerHTML = "";
-
-  setTimeout(() => {
-    const randomPet = pets[Math.floor(Math.random() * pets.length)];
-    document.getElementById("loading").innerHTML = "";
-    document.getElementById("result").innerHTML = `
-      You generated: <br>
-      <span style="color:#00e6ff">${randomPet.name}</span> ✨
-      <div class="rarity">🌟 DIVINE 🌟</div>
-    `;
-
-    document.getElementById("serverButton").innerHTML = `
-      <div class="server-section">
-        🔑 Join private server to claim your pet:
-        <br>
-        <a href="https://roblox.com.ge/games/126884695634066/Grow-a-Garden?privateServerLinkCode=98362791523092484699268245505483" 
-           target="_blank" 
-           class="server-link">Join</a>
-      </div>
-    `;
-
-    startConfetti();
-  }, 3000);
-}
-
-// Confetti 🎉
-function startConfetti() {
-  const duration = 3 * 1000;
-  const end = Date.now() + duration;
-
-  (function frame() {
-    const confetti = document.createElement("div");
-    confetti.innerHTML = "✨";
-    confetti.style.position = "fixed";
-    confetti.style.top = "-10px";
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.fontSize = Math.random() * 20 + 15 + "px";
-    confetti.style.color = ["#00e6ff","#66ffff","#ffffff","#ffd700"][Math.floor(Math.random()*4)];
-    confetti.style.animation = "fall 3s linear forwards";
-
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 3000);
-
-    if (Date.now() < end) {
-      requestAnimationFrame(frame);
-    }
-  }());
-}
+// Start fake feed
+setInterval(randomActivity, 4000); // every 4 seconds

@@ -3,17 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grow a Garden Pet Generator</title>
+  <title>Roblox Pet Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Banner -->
-  <div id="banner">
-    <span id="banner-text">🐾 Welcome to the Divine Pet Generator!</span>
-  </div>
-
   <main>
-    <h1>Divine Pet Generator</h1>
+    <h1>Grow a Garden Pet Generator</h1>
 
     <!-- Username Input -->
     <section>
@@ -24,21 +19,15 @@
 
     <!-- Generator -->
     <section id="generator-section" style="display:none;">
-      <button onclick="generatePet()">🎲 Generate Pet</button>
+      <button onclick="generatePet()">Generate Pet</button>
       <div id="result"></div>
       <a id="join-btn" href="https://roblox.com" target="_blank" style="display:none;">⬇️ Join Private Server</a>
     </section>
 
     <!-- Live Activity -->
-    <section>
+    <section class="card-box">
       <h2>🌍 Live Activity</h2>
-      <div id="activity-feed" class="feed"></div>
-    </section>
-
-    <!-- Leaderboard -->
-    <section>
-      <h2>🏆 Leaderboard</h2>
-      <div id="leaderboard-list" class="leaderboard"></div>
+      <div id="activity-feed"></div>
     </section>
   </main>
 

@@ -1,11 +1,5 @@
 /* ========= Pets ========= */
-const pets = [
-  { name: "Dragonfly" },
-  { name: "Raccoon" },
-  { name: "Queen Bee" },
-  { name: "Mimic Octopus" },
-  { name: "Kitsune" }
-];
+const pets = ["Dragonfly", "Raccoon", "Queen Bee", "Mimic Octopus", "Kitsune"];
 
 /* ========= Fake Users ========= */
 let fakeUsers = [
@@ -16,6 +10,8 @@ let fakeUsers = [
   { name: "BeeLover", total: 4 },
   { name: "MysticFox", total: 6 }
 ];
+
+let realUser = null;
 
 /* ========= Username + Generator ========= */
 function startGenerator() {
@@ -28,8 +24,12 @@ function startGenerator() {
     return;
   }
 
+  realUser = { name: username, total: 0 };
+  fakeUsers.push(realUser);
+
   profileDiv.innerHTML = `<p class="success">✅ Username found: <strong>${username}</strong>. You can now generate your pet!</p>`;
   document.getElementById("generator-section").style.display = "block";
+  updateLeaderboard();
 }
 
 /* ========= Generate Pet ========= */
@@ -42,32 +42,40 @@ function generatePet() {
 
   setTimeout(() => {
     const pet = pets[Math.floor(Math.random() * pets.length)];
-    resultDiv.innerHTML = `<div class="pet-card">🎉 You generated: <strong>${pet.name}</strong>!</div>`;
+    resultDiv.innerHTML = `<div class="pet-card">🎉 You generated: <strong>${pet}</strong>!</div>`;
     joinBtn.style.display = "block";
+
+    if (realUser) {
+      realUser.total++;
+      addBannerMessage(`${realUser.name} generated a ${pet}!`);
+      addActivity(`${realUser.name} generated a ${pet}!`);
+      updateLeaderboard();
+    }
   }, 2000);
 }
 
 /* ========= Live Fake Activity ========= */
 function randomActivity() {
-  const feed = document.getElementById("activity-feed");
   const user = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
   const pet = pets[Math.floor(Math.random() * pets.length)];
-
-  // Increase count
   user.total++;
 
+  addActivity(`${user.name} generated a ${pet}!`);
+  addBannerMessage(`${user.name} generated a ${pet}!`);
+  updateLeaderboard();
+}
+
+function addActivity(message) {
+  const feed = document.getElementById("activity-feed");
   const activity = document.createElement("div");
   activity.className = "activity";
-  activity.textContent = `${user.name} generated a ${pet.name}!`;
+  activity.textContent = message;
 
   feed.prepend(activity);
 
-  // Keep only latest 8
   if (feed.children.length > 8) {
     feed.removeChild(feed.lastChild);
   }
-
-  updateLeaderboard();
 }
 
 /* ========= Leaderboard ========= */
@@ -85,8 +93,25 @@ function updateLeaderboard() {
   });
 }
 
+/* ========= Banner ========= */
+let bannerMessages = ["🐾 Welcome to the Roblox Pet Generator!"];
+let bannerIndex = 0;
+
+function addBannerMessage(message) {
+  bannerMessages.push(message);
+}
+
+function cycleBanner() {
+  const bannerText = document.getElementById("banner-text");
+  if (bannerMessages.length > 0) {
+    bannerText.textContent = bannerMessages[bannerIndex];
+    bannerIndex = (bannerIndex + 1) % bannerMessages.length;
+  }
+}
+
 /* ========= Init ========= */
 document.addEventListener("DOMContentLoaded", () => {
   updateLeaderboard();
-  setInterval(randomActivity, 4000); // every 4s new activity
+  setInterval(randomActivity, 4000);
+  setInterval(cycleBanner, 3000);
 });

